@@ -1,0 +1,91 @@
+@import "src/variables.scss";
+
+@mixin card($bg, $buttonBg ,$color, $secondColor) {
+  display: flex;
+  flex-flow: column nowrap;
+  padding: 10px;
+  width: 400px;
+  margin: 0 20px 20px;
+  height: 100%;
+  border-radius: 10px;
+  box-shadow: 0px 5px 10px 2px rgba(34, 60, 80, 0.2);
+  background-color: $bg;
+
+  span {
+    font-family: sans-serif;
+  }
+
+  .CardHeader {
+    display: flex;
+    color: $color;
+    flex-flow: row nowrap;
+    justify-content: space-between;
+    font-family: sans-serif;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    height: 30px;
+    font-size: large;
+  }
+
+  .CardBody {
+    margin-top: 5px;
+    display: flex;
+    flex-flow: row wrap;
+    justify-content: space-around;
+    height: auto;
+    width: 100%;
+  }
+
+  .CardDesc{
+    color: $secondColor;
+    width: 150px;
+    height: 10.8em;
+    font-size: medium;
+    font-family: sans-serif;
+    overflow: hidden;
+    display: -webkit-box;
+    -webkit-line-clamp: 7;
+    -webkit-box-orient: vertical;
+  }
+
+  .Miniature {
+    height: 200px;
+    width: 200px;
+    border-radius: 5px;
+    box-shadow: 0px 5px 10px 2px rgba(34, 60, 80, 0.2);
+  }
+
+  .CardFooter {
+    color: $color;
+    margin-top: 10px;
+    display: flex;
+    flex-flow: row nowrap;
+    justify-content: space-around;
+    font-family: sans-serif;
+    white-space: nowrap;
+
+    button {
+      background-color: $buttonBg;
+      color: $color;
+      width: 50%;
+      padding: 5px;
+      border-radius: 5px;
+      border: 0;
+      box-shadow: 0px 5px 10px 2px rgba(34, 60, 80, 0.2);
+      transition: 1s;
+
+      &:hover {
+        color: $secondColor;
+      }
+    }
+  }
+}
+
+//$bg, $buttonBg ,$color, $secondColor
+.dark-card {
+  @include card($dark-main-bg, $dark-button-bg, $dark-main-color, $dark-second-color)
+}
+
+.light-card {
+  @include card($light-main-bg, $light-button-bg, $light-main-color, $light-second-color)
+}
