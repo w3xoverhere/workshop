@@ -1,16 +1,18 @@
-import React from 'react';
+import React, {useContext} from 'react';
 import './ThemeToggler.scss'
-const ThemeToggler = ({theme, setTheme}) => {
+import {ThemeContext} from "../../contexts/themeContext/ThemeContext";
+const ThemeToggler = () => {
+    let themeObj = useContext(ThemeContext)
     const changeTheme = () => {
-        if (theme === 'light') setTheme('dark')
-        else setTheme('light')
+        if (themeObj.theme === 'light') themeObj.setTheme('dark')
+        else themeObj.setTheme('light')
     }
 
     return (
         <div>
-            <div className={`${theme}-toggler`} onClick={changeTheme}>
+            <div className={`${themeObj.theme}-toggler`} onClick={changeTheme}>
                 <div id='Circle'
-                     style={theme === 'light' ? {right: '', left: '0'} : {left: '', right: '0'}}
+                     style={themeObj.theme === 'light' ? {right: '', left: '0'} : {left: '', right: '0'}}
                      className={'Circle'}
                 />
             </div>

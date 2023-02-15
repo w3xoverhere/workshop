@@ -4,7 +4,7 @@ import {ThemeContext} from "../../contexts/themeContext/ThemeContext";
 import {Link} from "react-router-dom";
 
 export const CatalogCard = ({data}) => {
-    let theme = useContext(ThemeContext)
+    let theme = useContext(ThemeContext).theme;
     return (
         <div className={`${theme}-card`}>
             <div className='CardHeader'>
@@ -14,7 +14,7 @@ export const CatalogCard = ({data}) => {
             </div>
             <hr style={{width: '100%'}}/>
             <div className='CardBody'>
-                <img className='Miniature' src={data.images[0].images}/>
+                <img className='Miniature' src={data.images[0].images} alt='-'/>
                 <p className='CardDesc'>{data.description}</p>
             </div>
             <span style={{textAlign: 'right', marginRight: '5%'}}>{data.author.name}</span>

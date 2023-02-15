@@ -2,7 +2,7 @@ import React, {useContext} from 'react';
 import {ThemeContext} from "../../contexts/themeContext/ThemeContext";
 import './Footer.scss'
 const Footer = () => {
-    let theme = useContext(ThemeContext)
+    let theme = useContext(ThemeContext).theme;
     return (
         <div className={`${theme}-footer`}>
             <div>

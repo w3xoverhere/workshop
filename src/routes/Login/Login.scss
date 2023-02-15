@@ -1,0 +1,45 @@
+@import 'src/variables.scss';
+
+@mixin login-wrapper($bg, $borderColor, $color, $secondColor) {
+  width: 50%;
+  font-family: sans-serif;
+  margin: 30px auto auto auto;
+  text-align: center;
+  display: flex;
+  flex-flow: column nowrap;
+  align-items: center;
+
+
+  h1 {
+    color: $color;
+    font-weight: lighter;
+  }
+
+  form {
+    display: flex;
+    flex-flow: column nowrap;
+    width: 250px;
+
+    input, button {
+      border: 1px solid $borderColor;
+      background-color: $bg;
+      box-shadow: 0px 5px 10px 2px rgba(34, 60, 80, 0.2);
+      color: $color;
+      padding: 5px;
+      margin-bottom: 10px;
+      border-radius: 5px;
+
+      &:hover {
+        color: $secondColor;
+      }
+    }
+  }
+}
+
+.dark-login-wrapper {
+  @include login-wrapper($dark-main-bg, $dark-second-color, $dark-main-color, $dark-second-color);
+}
+
+.light-login-wrapper {
+  @include login-wrapper($light-main-bg, $light-second-color, $light-main-color, $light-second-color);
+}

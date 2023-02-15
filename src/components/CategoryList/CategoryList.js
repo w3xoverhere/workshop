@@ -3,7 +3,7 @@ import './CategoryList.scss'
 import {ThemeContext} from "../../contexts/themeContext/ThemeContext";
 
 const CategoryList = ({type, total}) => {
-    const theme = useContext(ThemeContext);
+    const theme = useContext(ThemeContext).theme;
     const onChangeHandler = (e) => {
         window.location.href = `/catalog/${e.target.value}`;
     }

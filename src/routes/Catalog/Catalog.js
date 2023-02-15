@@ -4,6 +4,7 @@ import {useParams} from "react-router-dom";
 import axios from "axios";
 import CategoryList from "../../components/CategoryList/CategoryList";
 import styles from './Catalog.module.scss'
+import {REST_API_URL} from "../../env";
 
 const Catalog = () => {
     let {type} = useParams();
@@ -15,7 +16,7 @@ const Catalog = () => {
 
     useEffect(() => {
         if (fetching)
-            axios.get(`http://127.0.0.1:8000/api/v1/announcements${type ? '/' + type : ''}?page=${currentPage}`)
+            axios.get(`${REST_API_URL}announcements${type ? '/' + type : ''}?page=${currentPage}`)
                 .then(response => {
                     setData([...data, ...response.data.results]);
                     setCurrentPage(prevState => prevState + 1);

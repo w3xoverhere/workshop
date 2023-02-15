@@ -1,0 +1,16 @@
+@import "src/variables";
+
+@mixin register-wrapper($bg, $color) {
+  background-color: $bg;
+  span {
+    color: $color
+  }
+}
+
+.dark-register-wrapper {
+  @include register-wrapper($dark-second-bg, $dark-main-color)
+}
+
+.light-register-wrapper {
+  @include register-wrapper($light-second-bg, $light-main-color)
+}

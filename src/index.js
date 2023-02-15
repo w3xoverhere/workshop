@@ -6,16 +6,26 @@ import {createBrowserRouter, createRoutesFromElements, RouterProvider, Route} fr
 import Error from "./routes/Error/Error";
 import Main from "./routes/Main/Main";
 import Catalog from "./routes/Catalog/Catalog";
+import Login from "./routes/Login/Login";
+import Forgot from "./routes/Forgot/Forgot";
+import {Provider} from "react-redux";
+import {store} from "./store/store";
+import Register from "./routes/Register/Register";
 
 const JSXRouter = createBrowserRouter(createRoutesFromElements(
     <Route element={<Root/>} path='/' errorElement={<Error/>}>
         <Route element={<Main/>} path='/'/>
+        <Route element={<Login/>} path='/login/'/>
+        <Route element={<Register/>} path='/register/'/>
+        <Route element={<Forgot/>} path='/reset-password/'/>
         <Route element={<Catalog/>} path='catalog/:type?'/>
     </Route>
 ))
 
 const root = ReactDOM.createRoot(document.getElementById('root'));
 root.render(
-    <RouterProvider router={JSXRouter}/>
+    <Provider store={store}>
+        <RouterProvider router={JSXRouter}/>
+    </Provider>
 );
 
