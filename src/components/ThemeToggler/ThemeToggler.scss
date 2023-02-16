@@ -19,9 +19,9 @@
 }
 
 .light-toggler {
-  @include toggler($light-second-bg, $light-main-bg)
+  @include toggler($light-third-bg, $light-main-bg)
 }
 
 .dark-toggler {
-  @include toggler($dark-second-bg, $dark-main-bg)
+  @include toggler($dark-third-bg, $dark-main-bg)
 }

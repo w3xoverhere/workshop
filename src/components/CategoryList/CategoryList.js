@@ -1,16 +1,20 @@
 import React, {useContext} from 'react';
 import './CategoryList.scss'
 import {ThemeContext} from "../../contexts/themeContext/ThemeContext";
+import {useNavigate} from "react-router-dom";
 
-const CategoryList = ({type, total}) => {
+const CategoryList = ({category, categoryChange, total}) => {
     const theme = useContext(ThemeContext).theme;
+    const navigate = useNavigate();
     const onChangeHandler = (e) => {
-        window.location.href = `/catalog/${e.target.value}`;
+        navigate(`/catalog/${e.target.value}`);
+        categoryChange();
+
     }
 
     return (
         <div className={`${theme}-category-list-wrapper`}>
-            <select className={`${theme}-category-list`} defaultValue={type} onChange={onChangeHandler}>
+            <select className={`${theme}-category-list`} defaultValue={category} onChange={onChangeHandler}>
                 <option value=''>Все товары</option>
                 <option value='computers'>Компьютеры</option>
                 <optgroup label='Комплектующие'>

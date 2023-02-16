@@ -37,9 +37,9 @@
 }
 
 .dark-login-wrapper {
-  @include login-wrapper($dark-main-bg, $dark-second-color, $dark-main-color, $dark-second-color);
+  @include login-wrapper($dark-third-bg, $dark-second-color, $dark-main-color, $dark-second-color);
 }
 
 .light-login-wrapper {
-  @include login-wrapper($light-main-bg, $light-second-color, $light-main-color, $light-second-color);
+  @include login-wrapper($light-third-bg, $light-second-color, $light-main-color, $light-second-color);
 }

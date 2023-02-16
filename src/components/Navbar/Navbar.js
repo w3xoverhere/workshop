@@ -16,8 +16,10 @@ const Navbar = () => {
                 {!isAuthenticated ? <div>
                         <span><Link to='/login/' className={`${theme}-ref`}>Вход</Link></span>
                         <span><Link to='/register/' className={`${theme}-ref`}>Регистрация</Link></span></div>
-                    :
-                    <span><Link to='/logout/' className={`${theme}-ref`}>Выход</Link></span>
+                    : <div>
+                        <span><Link to='/profile/' className={`${theme}-ref`}>Профиль</Link></span>
+                        <span><Link to='/logout/' className={`${theme}-ref`}>Выход</Link></span>
+                    </div>
                 }
             </div>
             <span className={'ThemeToggler'}>

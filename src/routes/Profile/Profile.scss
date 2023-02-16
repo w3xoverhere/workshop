@@ -1,0 +1,107 @@
+@import "src/variables";
+
+@mixin profile-wrapper ($bg, $secondBg, $color, $secondColor, $light:true) {
+  display: flex;
+  margin: 30px auto auto auto;
+  flex-flow: column nowrap;
+  width: 60%;
+  height: auto;
+  border-radius: 10px;
+  color: $color;
+  background-color: $bg;
+
+  .profile-header {
+    width: auto;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex-flow: row wrap;
+    padding: 20px;
+
+    .profile-avatar {
+      width: 160px;
+      border-radius: 50%;
+    }
+
+    .profile-info {
+      padding: 10px;
+      align-self: flex-start;
+      font-family: sans-serif;
+      font-size: large;
+      display: flex;
+      flex-flow: column nowrap;
+      overflow: hidden;
+      text-overflow: ellipsis;
+      word-break: break-all;
+      align-items: start;
+      width: auto;
+
+      .profile-name, .profile-email, .profile-birth-date, .profile-country {text-align: center; padding:0 5px 0 5px; margin-bottom: 5px;}
+
+      .profile-name {
+        border-radius: 10px;
+        background-color: $secondBg;
+        font-size: medium;
+        font-weight: lighter;
+      }
+
+      .profile-email {
+        color: $secondColor;
+        font-size: small;
+        font-weight: lighter;
+      }
+
+      .profile-country {
+        font-size: small;
+        font-weight: lighter;
+      }
+
+      .profile-birth-date {
+        font-size: small;
+        font-weight: lighter;
+      }
+    }
+  }
+
+  .profile-announcements {
+    font-family: sans-serif;
+    color: $secondColor;
+    display: flex;
+    flex-flow: column nowrap;
+    text-align: center;
+    margin-bottom: 20px;
+
+
+  }
+
+  .profile-announcements-wrapper {
+    margin: 20px auto -20px;
+    display: flex;
+    flex-flow: row wrap;
+    justify-content: center;
+  }
+
+  .profile-announcements-nav {
+    margin-bottom: 15px;
+    display: flex;
+    width: 100%;
+    justify-content: space-around;
+  }
+
+  .profile-nav-arrow {
+    @if $light!=true {
+      filter: invert(100%);
+    } @else {
+      filter: invert(0%);
+    }
+  }
+
+}
+
+.dark-profile-wrapper {
+  @include profile-wrapper($dark-main-bg, $dark-third-bg, $dark-main-color, $dark-second-color, false)
+}
+
+.light-profile-wrapper {
+  @include profile-wrapper($light-main-bg, $light-third-bg, $light-main-color, $light-second-color, true)
+}

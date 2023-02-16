@@ -39,10 +39,12 @@
   .CardDesc{
     color: $secondColor;
     width: 150px;
-    height: 10.8em;
     font-size: medium;
     font-family: sans-serif;
+    height: 100px;
     overflow: hidden;
+    text-overflow: ellipsis;
+    word-break: break-all;
     display: -webkit-box;
     -webkit-line-clamp: 7;
     -webkit-box-orient: vertical;

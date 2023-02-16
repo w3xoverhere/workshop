@@ -1,0 +1,60 @@
+@import 'src/variables';
+
+@mixin announcement-card($bg, $color, $retrieveBg, $updateBg) {
+  margin: 0 20px 20px;
+  padding: 10px;
+  display: flex;
+  flex-flow: column nowrap;
+  background-color: $bg;
+  color: $color;
+  width: 180px;
+  border-radius: 10px;
+
+  .profile-announcement-card-body {
+    display: flex;
+    flex-flow: column nowrap;
+    align-items: center;
+
+    .profile-announcement-card-desc {
+      padding: 0 15px 0 15px;
+      height: 50px;
+      width: auto;
+      word-break: break-all;
+      overflow: hidden;
+      text-overflow: ellipsis;
+    }
+  }
+
+  img {
+    padding: 10px;
+    width: 100%;
+    height: 140px;
+  }
+
+  .profile-announcements-card-buttons {
+    display: flex;
+    flex-flow: column nowrap;
+
+    a {
+      border-radius: 2px;
+      padding: 3px;
+      text-decoration: none;
+      background-color: $updateBg;
+      margin-bottom: 5px;
+    }
+
+    a:first-child {
+      background-color: $retrieveBg;
+    }
+
+  }
+
+}
+
+.dark-announcement-card {
+  @include announcement-card($dark-four-bg, $dark-second-color, $dark-retrieve-button-bg, $dark-update-button-bg);
+}
+
+.light-announcement-card {
+  @include announcement-card($light-second-bg, $light-second-color, $light-retrieve-button-bg, $light-update-button-bg);
+}

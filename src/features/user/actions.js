@@ -19,7 +19,7 @@ export const refreshToken = createAsyncThunk(
 
             return response.data;
         } catch(e) {
-            rejectWithValue(e.message);
+            console.log('Ошибка проверки токена');
         }
 
     }
@@ -45,12 +45,12 @@ export const checkAuthentication = createAsyncThunk(
                     if(localStorage.getItem('refresh')) {
                         dispatch(refreshToken(localStorage.getItem('refresh')))
                             .then(()=>dispatch(authorization()));
-                    } else return rejectWithValue('Ошибка обновления токена');
+                    } else console.log('Ошибка рефреш токена')
                 } catch (e) {
-                    return rejectWithValue(e.message);
+                    console.log('Ошибка рефреш токена токена')
                 }
             }
-        } else return rejectWithValue('Ошибка проверки токена');
+        } else console.log('Ошибка проверки токена');
 
     }
 )

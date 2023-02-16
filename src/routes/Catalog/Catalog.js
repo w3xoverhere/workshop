@@ -32,6 +32,12 @@ const Catalog = () => {
         }
     },)
 
+    const categoryChangeHandler = () => {
+        setData([]);
+        setCurrentPage(1);
+        setFetching(true);
+    }
+
     const scrollHandler = (e) => {
         console.log(`data length:${data.length} total count: ${totalCount}`)
         if (e.target.documentElement.scrollHeight - (e.target.documentElement.scrollTop + window.innerHeight) < 100 && data.length < totalCount) {
@@ -41,7 +47,7 @@ const Catalog = () => {
 
     return (
         <div>
-            <CategoryList type={type} total={totalCount}/>
+            <CategoryList category={type} categoryChange={categoryChangeHandler} total={totalCount}/>
             <div className={styles.CardList}>
                 {data.map((card) => {
                     return <CatalogCard key={card.pk} data={card}/>
