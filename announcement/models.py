@@ -16,7 +16,7 @@ class Announcement(models.Model):
     content_object = GenericForeignKey('content_type', 'object_id')
     description = models.TextField(verbose_name='Описание')
     price = models.PositiveIntegerField(db_index=True, verbose_name='Цена')
-    author = models.ForeignKey(get_user_model(), on_delete=models.CASCADE, verbose_name='Пользователь')
+    author = models.ForeignKey(get_user_model(), on_delete=models.CASCADE, related_name='announcements', verbose_name='Пользователь')
     published = models.DateTimeField(auto_now_add=True, verbose_name='Дата публикации')
     updated = models.DateTimeField(auto_now=True, verbose_name='Дата обновления')
     is_active = models.BooleanField(default=True, verbose_name='Опубликовано')

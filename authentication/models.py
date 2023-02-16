@@ -8,14 +8,14 @@ from services.validators import validate_image_size
 
 class AuthUserManager(BaseUserManager):
     ''' Переопределённое создание пользователя '''
-    def create_superuser(self, email, name, country, password=None):
+    def create_superuser(self, email, name, country, password=None, avatar='', birth_date=None):
         if not email:
             raise ValueError('У пользователя должна быть почта')
         if not country:
             raise ValueError('У пользователя должна быть указана страна')
 
         email = self.normalize_email(email)
-        user = self.model(email=email, name=name, country=country)
+        user = self.model(email=email, name=name, country=country, avatar=avatar, birth_date=birth_date)
         user.set_password(password)
         user.is_staff = True
         user.is_superuser = True

@@ -20,6 +20,14 @@ class AnnouncementImagesSerializer(serializers.ModelSerializer):
         fields = ('images',)
 
 
+class UserAnnouncementSerializer(serializers.ModelSerializer):
+    images = AnnouncementImagesSerializer(many=True)
+
+    class Meta:
+        model = Announcement
+        fields = ['pk', 'tag_name', 'title', 'description', 'images', 'price', 'published', 'is_active']
+
+
 class AnnouncementSerializer(serializers.ModelSerializer):
     author = AuthorSerializer()
     images = AnnouncementImagesSerializer(many=True)

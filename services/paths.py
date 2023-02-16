@@ -10,4 +10,4 @@ def image_directory(instance, filename):
 
 # Аватары пользователей
 def avatar_path_upload(instance, filename):
-    return 'avatars/{0}/{1}'.format(instance.auth_user.pk, filename)
+    return 'avatars/{0}/{1}'.format(instance.pk, filename)
