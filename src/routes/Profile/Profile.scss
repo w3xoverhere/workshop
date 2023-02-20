@@ -33,7 +33,7 @@
       overflow: hidden;
       text-overflow: ellipsis;
       word-break: break-all;
-      align-items: start;
+      align-items: flex-start;
       width: auto;
 
       .profile-name, .profile-email, .profile-birth-date, .profile-country {text-align: center; padding:0 5px 0 5px; margin-bottom: 5px;}

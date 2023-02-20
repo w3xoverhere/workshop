@@ -4,21 +4,21 @@ import {REST_API_URL} from "../../env";
 
 export const refreshToken = createAsyncThunk(
     'user/refresh_access',
-    async (refresh,{rejectWithValue}) => {
+    async (refresh, {rejectWithValue}) => {
         const config = {
             headers: {
                 'Content-Type': 'application/json',
                 'Accept': 'application/json'
             }
         };
-        const body = JSON.stringify({refresh: refresh});
+        const body = JSON.stringify({'refresh': refresh});
         try {
             const response = await axios.post(`${REST_API_URL}auth/jwt/refresh`, body, config);
 
-            if(response.statusText!=='OK') throw new Error('Ошибка обновления токена');
+            if (response.statusText !== 'OK') throw new Error('Ошибка обновления токена');
 
             return response.data;
-        } catch(e) {
+        } catch (e) {
             console.log('Ошибка проверки токена');
         }
 
@@ -34,17 +34,17 @@ export const checkAuthentication = createAsyncThunk(
                 'Accept': 'application/json'
             }
         }
-        const body = JSON.stringify({token: localStorage.getItem('access')})
+        const body = JSON.stringify({'token': localStorage.getItem('access')})
         if (localStorage.getItem('access')) {
             try {
-                const res = await axios.post(`${REST_API_URL}auth/jwt/verify`, body, config );
-                if(res.statusText!=='OK' || res.data.code === 'token_not_valid') throw new Error('Verify error')
+                const res = await axios.post(`${REST_API_URL}auth/jwt/verify`, body, config);
+                if (res.statusText !== 'OK' || res.data.code === 'token_not_valid') throw new Error('Verify error')
                 dispatch(authorization());
             } catch (e) {
                 try {
-                    if(localStorage.getItem('refresh')) {
+                    if (localStorage.getItem('refresh')) {
                         dispatch(refreshToken(localStorage.getItem('refresh')))
-                            .then(()=>dispatch(authorization()));
+                            .then(() => dispatch(authorization()));
                     } else console.log('Ошибка рефреш токена')
                 } catch (e) {
                     console.log('Ошибка рефреш токена токена')

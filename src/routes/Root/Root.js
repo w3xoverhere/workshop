@@ -6,10 +6,12 @@ import Navbar from "../../components/Navbar/Navbar";
 import Footer from "../../components/Footer/Footer";
 import {useDispatch} from "react-redux";
 import {checkAuthentication} from "../../features/user/actions";
+import ModalProvider from "../../contexts/modalContext/ModalProvider";
 
 const Root = () => {
     const dispatch = useDispatch();
-    const navigate = useNavigate()
+    const [modalActive, setModalActive] = useState(false);
+    const [modalMessage, setModalMessage] = useState('');
     let themeInitialState = localStorage.getItem('theme') ? localStorage.getItem('theme') : 'light';
     const [theme, setTheme] = useState(themeInitialState);
 
@@ -20,13 +22,15 @@ const Root = () => {
     return (
         <div className={`${theme}-root`}>
             <ThemeProvider theme={theme} setTheme={setTheme}>
-                <Navbar/>
-                <div className='content'>
-                    <Outlet/>
-                </div>
-                <div className='footer'>
-                    <Footer/>
-                </div>
+                <ModalProvider active={modalActive} setActive={setModalActive} message={modalMessage} setMessage={setModalMessage}>
+                    <Navbar/>
+                    <div className='content'>
+                        <Outlet/>
+                    </div>
+                    <div className='footer'>
+                        <Footer/>
+                    </div>
+                </ModalProvider>
             </ThemeProvider>
         </div>
     )

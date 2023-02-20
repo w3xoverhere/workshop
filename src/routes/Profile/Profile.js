@@ -24,7 +24,7 @@ const Profile = () => {
             const fetchAnnouncements = async () => {
                 try {
                     if(!user.isAuthenticated) throw new Error('Error get user announcements');
-                    const response = await axios.get(`${REST_API_URL}announcements/user/${user.user.id}?page=${currentPage}`)
+                    const response = await axios.get(`${REST_API_URL}announcements/user/profile/${user.user.id}?page=${currentPage}`)
                     if(response.statusText!=='OK') throw new Error('Error get user announcements');
                     setUserAnnouncements([...response.data.results]);
                     if(response.data.next!==null) setHasNext(true);

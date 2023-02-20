@@ -30,7 +30,7 @@ const Login = () => {
     if(user.isAuthenticated) return <Navigate to='/'/>;
 
     return (
-        <div className={`${theme}-login-wrapper`}>
+        <div className={`${theme}-auth-form-wrapper`}>
             <h1>Вход</h1>
             <form onSubmit={(e) => onSubmit(e)}>
                 <input

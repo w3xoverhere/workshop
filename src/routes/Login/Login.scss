@@ -1,6 +1,6 @@
 @import 'src/variables.scss';
 
-@mixin login-wrapper($bg, $borderColor, $color, $secondColor) {
+@mixin auth-form-wrapper($bg, $borderColor, $color, $secondColor) {
   width: 50%;
   font-family: sans-serif;
   margin: 30px auto auto auto;
@@ -36,10 +36,10 @@
   }
 }
 
-.dark-login-wrapper {
-  @include login-wrapper($dark-third-bg, $dark-second-color, $dark-main-color, $dark-second-color);
+.dark-auth-form-wrapper {
+  @include auth-form-wrapper($dark-third-bg, $dark-second-color, $dark-main-color, $dark-second-color);
 }
 
-.light-login-wrapper {
-  @include login-wrapper($light-third-bg, $light-second-color, $light-main-color, $light-second-color);
+.light-auth-form-wrapper {
+  @include auth-form-wrapper($light-third-bg, $light-second-color, $light-main-color, $light-second-color);
 }
