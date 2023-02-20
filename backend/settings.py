@@ -1,5 +1,9 @@
+import os.path
 from datetime import timedelta
 from pathlib import Path
+
+DOMAIN = ('localhost:3000')
+SITE_NAME = ('workshop')
 
 BASE_DIR = Path(__file__).resolve().parent.parent
 
