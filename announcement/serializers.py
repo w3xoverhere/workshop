@@ -28,6 +28,13 @@ class UserAnnouncementSerializer(serializers.ModelSerializer):
         fields = ['pk', 'tag_name', 'title', 'description', 'images', 'price', 'published', 'is_active']
 
 
+class AnnouncementListSerializer(serializers.ModelSerializer):
+    author = AuthorSerializer()
+    images = AnnouncementImagesSerializer(many=True)
+    class Meta:
+        model = Announcement
+        exclude = ['object_id']
+
 class AnnouncementSerializer(serializers.ModelSerializer):
     author = AuthorSerializer()
     images = AnnouncementImagesSerializer(many=True)
@@ -46,4 +53,4 @@ class AnnouncementSerializer(serializers.ModelSerializer):
 
     class Meta:
         model = Announcement
-        fields = ['pk', 'tag_name', 'title', 'description', 'images', 'content_object', 'price', 'author', 'published', 'is_active']
+        fields = ['pk', 'tag_name', 'title', 'description', 'images', 'content_object', 'price', 'favorite_by', 'author', 'published', 'is_active']

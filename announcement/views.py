@@ -1,20 +1,20 @@
 from rest_framework.pagination import PageNumberPagination
+from rest_framework.permissions import BasePermission
 from rest_framework.response import Response
 from django.shortcuts import get_object_or_404
 from . import serializers
 from rest_framework import generics
 from .models import Announcement
-from rest_framework.viewsets import ViewSet
+from rest_framework.permissions import IsAuthenticated
 
-
-class AnnouncementPagination(PageNumberPagination): page_size = 6
+class AnnouncementPagination(PageNumberPagination): page_size = 4
 
 
 class UserAnnouncementPagination(PageNumberPagination): page_size = 3
 
 
 class AnnouncementListAPIView(generics.ListAPIView):
-    serializer_class = serializers.AnnouncementSerializer
+    serializer_class = serializers.AnnouncementListSerializer
     pagination_class = AnnouncementPagination
 
     def get_queryset(self):
@@ -46,6 +46,7 @@ class AnnouncementDetailAPIView(generics.GenericAPIView):
 
 
 class UserAnnouncementsListAPIView(generics.ListAPIView):
+    permission_classes = [IsAuthenticated]
     serializer_class = serializers.UserAnnouncementSerializer
     pagination_class = UserAnnouncementPagination
 
