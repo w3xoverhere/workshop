@@ -4,7 +4,6 @@ import {useParams} from "react-router-dom";
 import axios from "axios";
 import CategoryList from "../../components/CategoryList/CategoryList";
 import styles from './Catalog.module.scss'
-import {REST_API_URL} from "../../env";
 
 const Catalog = () => {
     let {type} = useParams();
@@ -16,7 +15,7 @@ const Catalog = () => {
 
     useEffect(() => {
         if (fetching)
-            axios.get(`${REST_API_URL}announcements${type ? '/' + type : ''}?page=${currentPage}`)
+            axios.get(`${process.env.REACT_APP_REST_API}announcements${type ? '/' + type : ''}?page=${currentPage}`)
                 .then(response => {
                     setData([...data, ...response.data.results]);
                     setCurrentPage(prevState => prevState + 1);
@@ -50,7 +49,7 @@ const Catalog = () => {
             <CategoryList category={type} categoryChange={categoryChangeHandler} total={totalCount}/>
             <div className={styles.CardList}>
                 {data.map((card) => {
-                    return <CatalogCard key={card.pk} data={card}/>
+                    return <CatalogCard key={card.id} data={card}/>
                 })}
             </div>
         </div>

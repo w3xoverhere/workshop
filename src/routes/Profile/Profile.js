@@ -1,15 +1,15 @@
 import React, {useContext, useEffect, useState} from 'react';
 import {useSelector} from "react-redux";
-import {Navigate} from "react-router-dom";
+import {Link, Navigate} from "react-router-dom";
 import {ThemeContext} from "../../contexts/themeContext/ThemeContext";
 import './Profile.scss';
 import axios from "axios";
-import {REST_API_URL} from "../../env";
 import ProfileAnn from "../../components/ProfileAnn/ProfileAnn";
 
-const unknown = require('./unknown.jpg')
-const prevArrow = require('./prev.png')
-const nextArrow = require('./next.png')
+const unknown = require('./unknown.jpg');
+const prevArrow = require('./prev.png');
+const nextArrow = require('./next.png');
+const settingGear = require('./settings.png');
 
 const Profile = () => {
     const user = useSelector(state => state.user);
@@ -18,32 +18,37 @@ const Profile = () => {
     const [hasPrev, setHasPrev] = useState(false);
     const [hasNext, setHasNext] = useState(false);
     const [fetching, setFetching] = useState(true);
+    let globalID;
     const theme = useContext(ThemeContext).theme;
 
     useEffect(() => {
             const fetchAnnouncements = async () => {
                 try {
-                    if(!user.isAuthenticated) throw new Error('Error get user announcements');
-                    const response = await axios.get(`${REST_API_URL}announcements/user/profile/${user.user.id}?page=${currentPage}`)
-                    if(response.statusText!=='OK') throw new Error('Error get user announcements');
+                    if (!user.isAuthenticated) throw new Error('Error get user announcements');
+                    const response = await axios.get(`${process.env.REACT_APP_REST_API}announcements/user/profile/${user.user.id}?page=${currentPage}`, {
+                        headers: {
+                            'Authorization': `JWT ${localStorage.getItem('access')}`
+                        }
+                    })
+                    if (response.statusText !== 'OK') throw new Error('Error get user announcements');
                     setUserAnnouncements([...response.data.results]);
-                    if(response.data.next!==null) setHasNext(true);
-                    if(response.data.previous!==null) setHasPrev(true);
+                    if (response.data.next !== null) setHasNext(true);
+                    if (response.data.previous !== null) setHasPrev(true);
                 } catch (e) {
                     console.log(e.message)
                 }
             }
-            fetchAnnouncements().finally(()=>setFetching(false));
+            fetchAnnouncements().finally(() => setFetching(false));
         }
         , [fetching])
 
 
     const announcementChangePageHandler = (e) => {
         setUserAnnouncements([]);
-        if(e.target.id==='next')
-            setCurrentPage((prevState) => prevState+1);
-        else if(e.target.id==='prev')
-            setCurrentPage((prevState) => prevState-1);
+        if (e.target.id === 'next')
+            setCurrentPage((prevState) => prevState + 1);
+        else if (e.target.id === 'prev')
+            setCurrentPage((prevState) => prevState - 1);
         setHasNext(false);
         setHasPrev(false);
         setFetching(true);
@@ -52,8 +57,32 @@ const Profile = () => {
     if (!user.isAuthenticated) return <Navigate to='/'/>
 
 
+    const settingGearOnMouse = (e) => {
+        let gear = document.getElementById('setting-gear');
+        let degree = 0;
+        const rotateGear = () => {
+            gear.style.transform = `rotate(${degree}deg)`;
+            if (degree !== 360) degree += 5
+            else degree = 0;
+            globalID = requestAnimationFrame(rotateGear);
+
+        }
+
+        if (e.type === 'mouseenter') {
+            globalID = requestAnimationFrame(rotateGear);
+        } else if(e.type === 'mouseleave') {
+            cancelAnimationFrame(globalID);
+        }
+    }
+
+
     return (
         <div className={`${theme}-profile-wrapper`}>
+            <div className={`profile-setting-block`} onMouseEnter={(e) => settingGearOnMouse(e)}
+                 onMouseLeave={(e) => settingGearOnMouse(e)}>
+                <img id='setting-gear' className='setting-gear' src={settingGear} alt='-'/>
+                <Link className={`${theme}-ref`} to='/profile/settings'><span>Настройки</span></Link>
+            </div>
             <div className='profile-header'>
                 <img className='profile-avatar' src={user.user.avatar ? user.user.avatar : unknown} alt='-'/>
                 <div className='profile-info'>
@@ -66,11 +95,13 @@ const Profile = () => {
             {userAnnouncements && <div className='profile-announcements'>
                 <span style={{marginBottom: '10px'}}>Мои объявления</span>
                 <div className='profile-announcements-nav'>
-                    {hasPrev? <img src={prevArrow} className='profile-nav-arrow' id='prev' onClick={announcementChangePageHandler} />:<span></span>}
-                    {hasNext? <img src={nextArrow} className='profile-nav-arrow' id='next' onClick={announcementChangePageHandler}/>: <span></span>}
+                    {hasPrev ? <img src={prevArrow} className='profile-nav-arrow' id='prev'
+                                    onClick={announcementChangePageHandler} alt='-'/> : <span></span>}
+                    {hasNext ? <img src={nextArrow} className='profile-nav-arrow' id='next'
+                                    onClick={announcementChangePageHandler} alt='-'/> : <span></span>}
                 </div>
                 <div className='profile-announcements-wrapper'>
-                    {userAnnouncements.map((data) => <ProfileAnn key={data.pk} data={data} />)}
+                    {userAnnouncements.map((data) => <ProfileAnn key={data.pk} data={data}/>)}
                 </div>
             </div>}
         </div>

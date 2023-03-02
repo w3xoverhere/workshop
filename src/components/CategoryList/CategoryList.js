@@ -12,6 +12,13 @@ const CategoryList = ({category, categoryChange, total}) => {
 
     }
 
+    const declensionOfTotal = (total) => {
+        let totalRemainder = Number(total) % 10;
+        if(totalRemainder === 1) return `${total} товар`
+        else if([2,3,4].includes(totalRemainder)) return `${total} товара`
+        else if([5,6,7,8,9,0].includes(totalRemainder)) return `${total} товаров`
+    }
+
     return (
         <div className={`${theme}-category-list-wrapper`}>
             <select className={`${theme}-category-list`} defaultValue={category} onChange={onChangeHandler}>
@@ -28,7 +35,7 @@ const CategoryList = ({category, categoryChange, total}) => {
                     <option value='cooler'>Кулеры</option>
                 </optgroup>
             </select>
-            <span>{total} товаров</span>
+            <span>{declensionOfTotal(total)}</span>
         </div>
     );
 };

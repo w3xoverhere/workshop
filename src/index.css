@@ -58,6 +58,11 @@ select {
     font: inherit;
 }
 
+input:focus {
+    outline: none;
+}
+
+
 @media (prefers-reduced-motion: reduce) {
     * {
         animation-duration: 0.01ms !important;

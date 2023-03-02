@@ -1,8 +1,9 @@
 $dark-main-bg: #1b1b1b;
-$dark-second-bg: #4e4e4e;
+$dark-second-bg: #242222;
 $dark-third-bg: #484a59;
-$dark-four-bg: #3b3b3b;
+$dark-four-bg: #2F2F2F;
 $dark-border: rgba(107, 117, 232, 0.72);
+$dark-second-border: rgba(50, 51, 70, 0.72);
 
 $dark-main-color: #d8d8d8;
 $dark-second-color: #cdcdcda6;
@@ -10,16 +11,19 @@ $dark-second-color: #cdcdcda6;
 $dark-button-bg: #3f4aab;
 $dark-retrieve-button-bg: #3f4aab;
 $dark-update-button-bg: #216c1e;
+$dark-remove-or-delete: #691919;
 
 $light-main-bg: seashell;
 $light-second-bg: #cecece;
 $light-third-bg: #acb9de;
-$light-four-bg: #8fa2a6;
-$light-border: rgba(224, 213, 181, 0.72);
+$light-four-bg: #e1e1e1;
+$light-border: rgba(104, 169, 220, 0.72);
+$light-second-border: rgba(240, 241, 255, 0.72);
 
 $light-main-color: black;
 $light-second-color: #4c4e4c;
 
-$light-button-bg: #acb9de;
+$light-button-bg: #8c98b7;
 $light-retrieve-button-bg: #acb9de;
 $light-update-button-bg: #2bad8f;
+$light-remove-or-delete: #b90000;

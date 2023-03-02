@@ -15,23 +15,30 @@ import Register from "./routes/Register/Register";
 import Profile from "./routes/Profile/Profile";
 import CatalogDetail from "./routes/CatalogDetail/CatalogDetail";
 import axios from "axios";
-import {REST_API_URL} from "./env";
 import ForgotConfirm from "./routes/ForgotConfirm/ForgotConfirm";
+import Activate from "./routes/Activate/Activate";
+import ProfileSettings from "./routes/ProfileSettings/ProfileSettings";
+import ResetEmail from "./routes/ResetEmail/ResetEmail";
+import Favorite from "./routes/Favorite/Favorite";
 
 const JSXRouter = createBrowserRouter(createRoutesFromElements(
     <Route element={<Root/>} path='/' errorElement={<Error/>}>
         <Route element={<Main/>} path='/'/>
         <Route element={<Login/>} path='/login/'/>
         <Route element={<Profile/>} path='/profile/'/>
-        <Route element={<Logout/>} path='/Logout/'/>
+        <Route element={<Favorite/>} path='/favorite/'/>
+        <Route element={<ProfileSettings/>} path='/profile/settings/'/>
+        <Route element={<Logout/>} path='/logout/'/>
         <Route element={<Register/>} path='/register/'/>
+        <Route element={<Activate/>} path='/activate/:uid/:token'/>
+        <Route element={<ResetEmail/>} path='/email/reset/confirm/:uid/:token'/>
         <Route element={<Forgot/>} path='/reset-password/'/>
         <Route element={<ForgotConfirm/>} path='/password/reset/confirm/:uid/:token'/>
         <Route element={<Catalog/>} path='/catalog/:type?'/>
         <Route element={<CatalogDetail/>} path='/catalog/:type/:id' loader={
             async ({params}) => {
                 try {
-                    const response = await axios.get(`${REST_API_URL}announcements/${params.type}/${params.id}`);
+                    const response = await axios.get(`${process.env.REACT_APP_REST_API}announcements/${params.type}/${params.id}`);
                     return response;
                 } catch (e) {
                     console.log('ERROR FETCH ANNOUNCEMENT')

@@ -5,8 +5,10 @@ import {ThemeContext} from "../../contexts/themeContext/ThemeContext";
 import { useStoreDispatch } from '../../store/store';
 import {authentication, authorization} from "../../features/user/actions";
 import {useSelector} from "react-redux";
+import {ModalContext} from "../../contexts/modalContext/ModalContext";
 
 const Login = () => {
+    const modal = useContext(ModalContext);
     const dispatch = useStoreDispatch();
     const user = useSelector(state => state.user);
     let theme = useContext(ThemeContext).theme;
@@ -52,7 +54,6 @@ const Login = () => {
                 />
                 <button>Войти</button>
             </form>
-            {user.error && user.error.map((err) =><span style={{color: 'red'}}>{err}</span>)}
             <Link style={{textDecoration: 'none'}} className={`${theme}-ref`} to='/reset-password/'>Забыли пароль?</Link>
         </div>
     );

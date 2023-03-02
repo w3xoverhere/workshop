@@ -28,9 +28,28 @@
 @mixin ref($color, $transColor) {
  color: $color;
  font-size: 12px;
+ text-decoration: none;
  &:hover {
   color: $transColor;
  }
+}
+
+@mixin remove-or-delete-button($bg, $color, $hoverColor) {
+ background-color: $bg !important;
+ color: $color !important;
+
+ &:hover {
+  transition: 1s !important;
+  color: $hoverColor !important;
+ }
+}
+
+.dark-remove-or-delete-button {
+ @include remove-or-delete-button($dark-remove-or-delete, $dark-main-color, $dark-second-color);
+}
+
+.light-remove-or-delete-button {
+ @include remove-or-delete-button($light-remove-or-delete, $light-main-color, $light-second-color);
 }
 
 .light-ref {

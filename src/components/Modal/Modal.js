@@ -4,7 +4,6 @@ import {ThemeContext} from "../../contexts/themeContext/ThemeContext";
 
 const Modal = ({active, setActive, message, setMessage}) => {
     const theme = useContext(ThemeContext).theme;
-    console.log(active);
     return (
         <div className={active?`${theme}-modal modal-active`:`${theme}-modal`}>
             <div className='modal-content'>

@@ -3,53 +3,36 @@ import {Navigate, useNavigate} from "react-router-dom";
 import {ThemeContext} from "../../contexts/themeContext/ThemeContext";
 import {useStoreDispatch} from '../../store/store';
 import {useSelector} from "react-redux";
-import axios from "axios";
-import {REST_API_URL} from "../../env";
 import {ModalContext} from "../../contexts/modalContext/ModalContext";
+import {resetPassword} from "../../features/user/actions";
 
 const Forgot = () => {
+    const dispatch = useStoreDispatch();
     const navigate = useNavigate();
     const modal = useContext(ModalContext);
-    const [errors, setError] = useState([])
     const user = useSelector(state => state.user);
     let theme = useContext(ThemeContext).theme;
 
 
     const [email, setEmail] = useState('');
 
-    const forgotPassword = () => {
-        const config = {
-            headers: {
-                'Content-Type': 'application/json',
-                'Accept': 'application/json'
-            }
-        };
-
-        const body = JSON.stringify({'email': email});
-        const send = async (email) => {
-            try {
-                const response = await axios.post(`${REST_API_URL}auth/users/reset_password/`, body, config)
-                if (response.statusText !== 'OK') throw new Error('Ошибка сброса пароля')
-            } catch (e) {
-                setError([...errors, e.message])
-            }
-        }
-
-        send().then(() => {
-            modal.setActive(true);
-            modal.setMessage('На вашу почту было отправлено письмо с ссылкой. Перейдите по ссылке для смены пароля');
-            navigate('/');
-        });
-    }
-
-
     const onChange = (e) => {
         setEmail(e.target.value);
     }
 
-    const onSubmit = (e) => {
-        e.preventDefault();
-        forgotPassword(email);
+    const onSubmit = async (e) => {
+        e.preventDefault()
+        await dispatch(resetPassword(email)).then(()=>{
+            if(user.error.length>0) {
+                modal.setMessage(user.error[0])
+                modal.setActive(true);
+            }
+            else {
+                modal.setMessage('Проверьте почту.')
+                modal.setActive(true);
+            }
+        });
+
     }
 
     if (user.isAuthenticated) return <Navigate to='/'/>;

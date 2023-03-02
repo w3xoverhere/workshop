@@ -1,0 +1,108 @@
+@import 'src/variables.scss';
+
+@mixin profile-settings-wrapper($bg, $border, $color, $inputBg, $emailChangeBg) {
+  padding: 2%;
+  display: flex;
+  flex-flow: column nowrap;
+  align-items: center;
+  width: 80%;
+  background-color: $bg;
+  margin: 30px auto auto auto;
+  border-radius: 10px;
+
+
+  .profile-settings-form-group {
+    margin: 40px auto -20px;
+    width: 80%;
+    position: relative;
+    display: flex;
+    justify-content: space-around;
+    align-items: center;
+    flex-flow: row wrap;
+    &:not(:last-child) {
+      border-bottom: 3px solid $border;
+    }
+
+    .profile-settings-form-group-header {
+      align-self: flex-start;
+      float:left;
+      font-family: Tahoma, sans-serif;
+      color: $color;
+      font-size: larger;
+
+    }
+
+    form {
+      margin: 0 20px 20px;
+      width: 200px;
+      display: flex;
+      align-items: flex-start;
+      flex-flow: column nowrap;
+
+      .profile-settings-avatar {
+        align-self: center;
+        border-radius: 50%;
+        width: 160px;
+        height: 160px;
+        margin: 15px 0 15px 0
+      }
+
+      label {
+        color: $color;
+        font-size: 13px;
+        font-family: Tahoma, sans-serif;
+      }
+
+      input {
+        padding:5px;
+        font-family: Tahoma, sans-serif;
+        color: $color;
+        background-color: $inputBg;
+        margin-top: 10px;
+        border: 2px solid $border;
+        width: 100%;
+        border-radius: 15px;
+
+        &:focus {
+          outline: none;
+        }
+      }
+
+      button {
+        color: $color;
+        font-family: Tahoma, sans-serif;
+        background-color: $inputBg;
+        border-radius: 5px;
+        margin-top: 15px;
+        width: auto;
+        border: 1px solid $border;
+        align-self: center;
+      }
+    }
+
+    .profile-settings-btn {
+      border: 1px solid $border;
+      color: $color;
+      background-color: $emailChangeBg;
+      padding: 5px;
+      width: 45%;
+      font-size: 13px;
+      font-family: Tahoma, sans-serif;
+      border-radius: 6px;
+      margin-bottom: 25px;
+
+      &:hover {
+        color: aliceblue;
+      }
+    }
+
+  }
+}
+
+.dark-profile-settings-wrapper {
+  @include profile-settings-wrapper($dark-main-bg, $dark-second-border, $dark-main-color, $dark-four-bg, $dark-button-bg);
+}
+
+.light-profile-settings-wrapper {
+  @include profile-settings-wrapper($light-main-bg, $light-second-border, $light-main-color, $light-four-bg, $light-button-bg);
+}

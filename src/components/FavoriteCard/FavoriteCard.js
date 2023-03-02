@@ -1,13 +1,12 @@
 import React, {useContext} from "react";
-import './CatalogCard.scss'
 import {ThemeContext} from "../../contexts/themeContext/ThemeContext";
 import {Link} from "react-router-dom";
 import ImageSlider from "../ImageSlider/ImageSlider";
 import {useSelector} from "react-redux";
 import {useStoreDispatch} from "../../store/store";
-import {addAnnToFavorite} from "../../features/favorite/actions";
+import {removeAnnFromFavorite} from "../../features/favorite/actions";
 
-export const CatalogCard = ({data}) => {
+export const FavoriteCard = ({data}) => {
     const dispatch = useStoreDispatch();
     const user = useSelector(state => state.user);
     let theme = useContext(ThemeContext).theme;
@@ -24,12 +23,10 @@ export const CatalogCard = ({data}) => {
                 <p className='CardDesc'>{data.description}</p>
             </div>
             <span className='CardAuthor'>Автор: {data.author.name}</span>
-                <div className='CardFooter'>
-                    <span>{data.price} руб.</span>
-                    {user.isAuthenticated && <button onClick={()=>{
-                        dispatch(addAnnToFavorite({userID: user.user.id, annID: data.id}))}
-                    }>В избранное</button>}
-                </div>
+            <div className='CardFooter'>
+                <span>{data.price} руб.</span>
+                {user.isAuthenticated && <button onClick={()=>{dispatch(removeAnnFromFavorite({userID: user.user.id, annID: data.id}))}} className={`${theme}-remove-or-delete-button`}>Убрать</button>}
+            </div>
         </div>
-)
+    )
 }

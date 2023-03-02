@@ -1,6 +1,6 @@
 @import 'src/variables';
 
-@mixin announcement-card($bg, $color, $retrieveBg, $updateBg) {
+@mixin announcement-card($bg, $color, $retrieveBg) {
   margin: 0 20px 20px;
   padding: 10px;
   display: flex;
@@ -9,6 +9,12 @@
   color: $color;
   width: 180px;
   border-radius: 10px;
+
+  span {
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+  }
 
   .profile-announcement-card-body {
     display: flex;
@@ -26,8 +32,7 @@
   }
 
   img {
-    padding: 10px;
-    width: 100%;
+    width: 140px;
     height: 140px;
   }
 
@@ -36,14 +41,10 @@
     flex-flow: column nowrap;
 
     a {
+      margin: 10px 0 10px 0;
       border-radius: 2px;
       padding: 3px;
       text-decoration: none;
-      background-color: $updateBg;
-      margin-bottom: 5px;
-    }
-
-    a:first-child {
       background-color: $retrieveBg;
     }
 
@@ -52,9 +53,9 @@
 }
 
 .dark-announcement-card {
-  @include announcement-card($dark-four-bg, $dark-second-color, $dark-retrieve-button-bg, $dark-update-button-bg);
+  @include announcement-card($dark-four-bg, $dark-second-color, $dark-retrieve-button-bg);
 }
 
 .light-announcement-card {
-  @include announcement-card($light-second-bg, $light-second-color, $light-retrieve-button-bg, $light-update-button-bg);
+  @include announcement-card($light-second-bg, $light-second-color, $light-retrieve-button-bg);
 }

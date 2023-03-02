@@ -1,6 +1,6 @@
 @import "src/variables";
 
-@mixin profile-wrapper ($bg, $secondBg, $color, $secondColor, $light:true) {
+@mixin profile-wrapper ($bg, $secondBg, $color, $secondColor,$buttonBg, $light:true) {
   display: flex;
   margin: 30px auto auto auto;
   flex-flow: column nowrap;
@@ -20,8 +20,11 @@
 
     .profile-avatar {
       width: 160px;
+      height: 160px;
+      margin-bottom: 15px;
       border-radius: 50%;
     }
+
 
     .profile-info {
       padding: 10px;
@@ -96,12 +99,32 @@
     }
   }
 
+  .profile-setting-block {
+    margin: 10px 0 0 10px;
+    width: 100px;
+    display: flex;
+    flex-flow: row nowrap;
+    justify-content: space-around;
+
+    span {
+      font-family: Tahoma, sans-serif;
+    }
+  }
+
+  .setting-gear {
+    @if $light!=true {
+      filter: invert(0.5);
+    }
+
+    height: 25px;
+  }
+
 }
 
 .dark-profile-wrapper {
-  @include profile-wrapper($dark-main-bg, $dark-third-bg, $dark-main-color, $dark-second-color, false)
+  @include profile-wrapper($dark-main-bg, $dark-third-bg, $dark-main-color, $dark-second-color, $dark-button-bg,false)
 }
 
 .light-profile-wrapper {
-  @include profile-wrapper($light-main-bg, $light-third-bg, $light-main-color, $light-second-color, true)
+  @include profile-wrapper($light-main-bg, $light-third-bg, $light-main-color, $light-second-color,$light-button-bg, true)
 }

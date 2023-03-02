@@ -2,15 +2,15 @@ import React, {useContext, useState} from 'react';
 import {Navigate, useNavigate, useParams} from "react-router-dom";
 import {ThemeContext} from "../../contexts/themeContext/ThemeContext";
 import {useSelector} from "react-redux";
-import axios from "axios";
-import {REST_API_URL} from "../../env";
 import {ModalContext} from "../../contexts/modalContext/ModalContext";
+import {useStoreDispatch} from "../../store/store";
+import {resetPasswordConfirm} from "../../features/user/actions";
 
 const ForgotConfirm = () => {
+    const dispatch = useStoreDispatch();
     const modal = useContext(ModalContext)
     const navigate = useNavigate();
     const {uid, token} = useParams();
-    const [errors, setError] = useState([])
     const user = useSelector(state => state.user);
     let theme = useContext(ThemeContext).theme;
 
@@ -23,44 +23,18 @@ const ForgotConfirm = () => {
         setPasswords({...passwords, [e.target.name]: e.target.value})
     }
 
-
-    const sendNewPassword = () => {
-        const config = {
-            headers: {
-                'Content-Type': 'application/json',
-                'Accept': 'application/json'
-            }
-        };
-
-        const body = JSON.stringify({
-            'uid': uid,
-            'token': token,
-            'new_password': passwords.password,
-            're_new_password': passwords.re_password
-        });
-        const send = async () => {
-            try {
-                const response = await axios.post(`${REST_API_URL}auth/users/reset_password_confirm/`, body, config);
-                if (response.status !== 204) throw new Error('Ошибка смены пароля')
-                modal.setMessage('Успешный сброс пароля');
-                modal.setActive(true);
-            } catch (e) {
-                setError([...errors, e.message]);
-                console.log(e.message);
-            }
-        }
-        send().then(()=> {
-            modal.setActive(true);
-            modal.setMessage('Проверьте почту');
-            navigate('/');
-        });
-    }
-
-
-
     const onSubmit = (e) => {
         e.preventDefault();
-        sendNewPassword();
+        dispatch(resetPasswordConfirm({'uid':uid, 'token':token, 'new_password': passwords.password, 're_new_password': passwords.re_password})).then(()=>{
+            if(user.error.length>0) {
+                modal.setMessage(user.error[0]);
+                modal.setActive(true);
+            } else {
+                modal.setMessage('Успешный сброс пароля');
+                modal.setActive(true);
+                navigate('/');
+            }
+        });
     }
 
     if (user.isAuthenticated) return <Navigate to='/'/>;
@@ -87,7 +61,6 @@ const ForgotConfirm = () => {
                 />
                 <button>Отправить</button>
             </form>
-            {errors && errors.map((error)=><span style={{color: 'red'}} id={errors.indexOf(error)}>{error}</span>)}
         </div>
     );
 };
