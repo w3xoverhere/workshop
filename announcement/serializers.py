@@ -11,7 +11,7 @@ from generic_relations.relations import GenericRelatedField
 class AuthorSerializer(serializers.ModelSerializer):
     class Meta:
         model = get_user_model()
-        fields = ('name',)
+        fields = ('name', 'avatar', 'joined_date')
 
 
 class AnnouncementImagesSerializer(serializers.ModelSerializer):

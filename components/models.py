@@ -38,7 +38,8 @@ class Processor(models.Model): #Без базового компонента, т
     series = models.CharField(max_length=40, verbose_name='Серия')
     socket = models.CharField(max_length=10, choices=models_vars.SOCKETS, verbose_name='Сокет')
     # Ядро и архитектура
-    frequency = fields.DecimalRangeField(default_bounds='[]',verbose_name='Частота(минимальная и максимальная)')
+    min_frequency = models.DecimalField(max_digits=2, decimal_places=1,verbose_name='Частота')
+    max_frequency = models.DecimalField(max_digits=2, decimal_places=1,verbose_name='Частота в разгоне')
     kernels = models.PositiveIntegerField(verbose_name='Кол-во ядер')
     streams = models.PositiveIntegerField(verbose_name='Кол-во потоков')
     cache_l2 = models.PositiveIntegerField(verbose_name='Кэш L2')
@@ -188,8 +189,7 @@ class CoolerForProcessor(BaseComponent):
     material = models.CharField(max_length=40, verbose_name='Материал радиатора')
     MPD = models.PositiveIntegerField(verbose_name='Максимальная рассеиваемая мощность')
     count_fans = models.PositiveIntegerField(verbose_name='Кол-во вентиляторов')
-    rotational_speed = fields.DecimalRangeField(default_bounds='[]',verbose_name='Скорость вращения')
-    noise = fields.DecimalRangeField(default_bounds='[]',verbose_name='Уровень шума')
+    rotational_speed = models.PositiveIntegerField(verbose_name='Скорость вращения')
 
     # Связующее объявление
     announcements = GenericRelation(Announcement, related_query_name='cooler', related_name='coolers')

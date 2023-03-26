@@ -11,13 +11,12 @@ class MotherBoardModelSerializer(serializers.ModelSerializer):
 class ProcessorModelSerializer(serializers.ModelSerializer):
     class Meta:
         model = models.Processor
-        exclude = ['max_ram_frequency', 'max_ram_size']
-
+        fields = '__all__'
 
 class VideocardModelSerializer(serializers.ModelSerializer):
     class Meta:
         model = models.Videocard
-        exclude = ['TMU', 'ROP', 'ray_tracing']
+        fields = '__all__'
 
 
 class RAMModelSerializer(serializers.ModelSerializer):
@@ -41,10 +40,10 @@ class SSDModelSerializer(serializers.ModelSerializer):
 class PowerUnitModelSerializer(serializers.ModelSerializer):
     class Meta:
         model = models.PowerUnit
-        exclude = ['fan_diameter']
+        fields = '__all__'
 
 
 class CoolerForProcessorModelSerializer(serializers.ModelSerializer):
     class Meta:
         model = models.CoolerForProcessor
-        exclude = ['MPD', 'noise']
+        fields = '__all__'
