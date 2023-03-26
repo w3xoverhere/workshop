@@ -121,7 +121,7 @@ const ProfileSettings = () => {
             </div>
             <div className='profile-settings-form-group' style={{flexFlow: 'column nowrap'}}>
                 <button onClick={(e)=>{changeEmailHandler(e)}} className='profile-settings-btn'>Сменить почту</button>
-                <button onClick={(e)=>{navigate('/logout/')}} className='profile-settings-btn' style={{backgroundColor: 'rgba(235, 25, 25, 0.8)'}}>Выйти</button>
+                <button onClick={(e)=>{navigate('/logout/')}} className={`profile-settings-btn ${theme}-remove-or-delete-button`} style={{backgroundColor: 'rgba(235, 25, 25, 0.8)'}}>Выйти</button>
             </div>
         </div>
     );

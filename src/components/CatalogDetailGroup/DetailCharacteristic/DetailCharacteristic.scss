@@ -1,0 +1,36 @@
+@import 'src/variables.scss';
+
+@mixin detail-characteristic($mainColor, $secondColor) {
+  width: 100%;
+
+  table {width: 50%; margin: auto;}
+
+  #detail-characteristic-header {
+    padding: 30px;
+    text-align: left;
+  }
+
+  .detail-characteristic-field {
+    padding: 5px 15px 0 15px;
+  }
+
+  table td {
+    font-family: Tahoma, sans-serif;
+    padding: 5px 15px 0 15px;
+    width: auto;
+    text-align: left;
+  }
+
+  span {
+    color: $mainColor;
+  }
+
+}
+
+.dark-detail-characteristic {
+  @include detail-characteristic($dark-main-color, $dark-second-color);
+}
+
+.light-detail-characteristic {
+  @include detail-characteristic($light-main-color, $light-second-color);
+}

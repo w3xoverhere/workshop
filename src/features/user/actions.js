@@ -3,7 +3,7 @@ import axios from "axios";
 
 export const changeField = createAsyncThunk(
     'user/change_field',
-    async ({field, value}, {rejectedWithValue, dispatch}) => {
+    async ({field, value}, {rejectWithValue, dispatch}) => {
         const config = {
             headers: {
                 'Content-Type': field==='avatar'?'multipart/form-data':'application/json',
@@ -31,11 +31,15 @@ export const changeField = createAsyncThunk(
             const response = await axios.patch(`${process.env.REACT_APP_REST_API}auth/users/me/`, body, config);
             if(response.status!==200) throw new Error();
         } catch (e) {
-            if(localStorage.getItem('access')) {
-                dispatch(checkAuthentication()).then(()=>{
-                    dispatch(changeField({field:field, value: value}));
-                })
-            } else return rejectedWithValue('Ошибка смены поля пользователя');
+            try {
+                if (localStorage.getItem('refresh')) {
+                    dispatch(checkAuthentication()).then(
+                            () => {dispatch(changeField({field:field, value: value}));}
+                    );
+                } else return rejectWithValue('Ошибка смены поля пользователя')
+            } catch (e) {
+                return rejectWithValue('Ошибка смены поля пользователя')
+            }
         }
     }
 )
@@ -43,7 +47,7 @@ export const changeField = createAsyncThunk(
 
 export const changeEmail = createAsyncThunk(
     'user/reset_email',
-    async (email, {rejectedWithValue}) => {
+    async (email, {rejectWithValue, dispatch}) => {
         const body = {
             email: email
         };
@@ -60,7 +64,15 @@ export const changeEmail = createAsyncThunk(
             if(response.status!==204) throw new Error();
             return response.data;
         } catch (e) {
-            return rejectedWithValue('Ошибка смены почты')
+            try {
+                if (localStorage.getItem('refresh')) {
+                    dispatch(checkAuthentication()).then(
+                        () => {dispatch(changeEmail(email));}
+                    );
+                } else return rejectWithValue('Ошибка смены почты пользователя')
+            } catch (e) {
+                return rejectWithValue('Ошибка смены почты пользователя')
+            }
         }
     }
 )
@@ -110,7 +122,7 @@ export const registerActivation = createAsyncThunk(
 
 export const resetPasswordConfirm = createAsyncThunk(
     'user/reset_password_confirm',
-    async ({uid, token, new_password, re_new_password}, {rejectedWithValue}) => {
+    async ({uid, token, new_password, re_new_password}, {rejectWithValue}) => {
         const config = {
             headers: {
                 'Content-Type': 'application/json',
@@ -130,7 +142,7 @@ export const resetPasswordConfirm = createAsyncThunk(
             if (response.status !== 204) throw new Error('Ошибка подтверждения смены пароля')
             else return response.data
         } catch (e) {
-            return rejectedWithValue('Ошибка подтверждения смены пароля')
+            return rejectWithValue('Ошибка подтверждения смены пароля')
         }
     }
 );

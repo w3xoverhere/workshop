@@ -30,6 +30,8 @@
  font-size: 12px;
  text-decoration: none;
  &:hover {
+  transition: 0.3s !important;
+  cursor: pointer;
   color: $transColor;
  }
 }

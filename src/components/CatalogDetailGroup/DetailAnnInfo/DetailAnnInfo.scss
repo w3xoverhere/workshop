@@ -1,0 +1,27 @@
+@import 'src/variables.scss';
+
+@mixin catalog-detail-desc($color, $refColor) {
+  width: 100%;
+
+  p {
+    color: $color;
+    overflow: hidden;
+    display: -webkit-box;
+    -webkit-line-clamp: 7;
+    -webkit-box-orient: vertical;
+    line-height: 1.3em;
+    height: 9em;
+  }
+
+  span {
+    color: $refColor;
+  }
+}
+
+.dark-catalog-detail-desc {
+  @include catalog-detail-desc($dark-second-color, $dark-main-color);
+}
+
+.light-catalog-detail-desc {
+  @include catalog-detail-desc($light-second-color, $light-main-color);
+}

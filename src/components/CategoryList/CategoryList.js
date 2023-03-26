@@ -23,7 +23,7 @@ const CategoryList = ({category, categoryChange, total}) => {
         <div className={`${theme}-category-list-wrapper`}>
             <select className={`${theme}-category-list`} defaultValue={category} onChange={onChangeHandler}>
                 <option value=''>Все товары</option>
-                <option value='computers'>Компьютеры</option>
+                <option value='computer'>Компьютеры</option>
                 <optgroup label='Комплектующие'>
                     <option value='motherboard'>Материнские платы</option>
                     <option value='processor'>Процессоры</option>

@@ -13,7 +13,7 @@ const Favorite = () => {
 
     useEffect(()=>{
         if(user.isAuthenticated) {
-            dispatch(getFavoriteList({userID: user.user.id})).then(() => console.log(favoriteAnn))
+            dispatch(getFavoriteList({userID: user.user.id}));
         }
 
         return function cleanup() {
@@ -23,7 +23,7 @@ const Favorite = () => {
 
     return (
         <div className='favorite-wrapper'>
-            {favoriteAnn.length && favoriteAnn.map((data)=> <FavoriteCard key={data.id} data={data}/>)}
+            {favoriteAnn && favoriteAnn.map((data)=> <FavoriteCard key={data.id} data={data}/>)}
         </div>
     );
 };

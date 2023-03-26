@@ -20,12 +20,14 @@ export const FavoriteCard = ({data}) => {
             </div>
             <div className='CardBody'>
                 <ImageSlider data={data.images} />
-                <p className='CardDesc'>{data.description}</p>
+                <div>
+                    <p className='CardDesc'>{data.description}</p>
+                    {user.isAuthenticated && <button onClick={()=>{dispatch(removeAnnFromFavorite({userID: user.user.id, annID: data.id}))}} className={`${theme}-remove-or-delete-button`}>Убрать</button>}
+                </div>
             </div>
-            <span className='CardAuthor'>Автор: {data.author.name}</span>
             <div className='CardFooter'>
                 <span>{data.price} руб.</span>
-                {user.isAuthenticated && <button onClick={()=>{dispatch(removeAnnFromFavorite({userID: user.user.id, annID: data.id}))}} className={`${theme}-remove-or-delete-button`}>Убрать</button>}
+                <span className='CardAuthor'>{data.author.name}</span>
             </div>
         </div>
     )

@@ -1,10 +1,11 @@
 import {createAsyncThunk} from "@reduxjs/toolkit";
 import axios from "axios";
+import {checkAuthentication} from "../user/actions";
 
 
 export const getFavoriteCount = createAsyncThunk(
     'favorite/count',
-    async (id, {rejectWithValue}) => {
+    async (id, {rejectWithValue, dispatch}) => {
         try {
             const response = await axios.get(`${process.env.REACT_APP_REST_API}announcements/${id}/favorite-count/`, {
                 headers: {
@@ -13,7 +14,15 @@ export const getFavoriteCount = createAsyncThunk(
             })
             return response.data;
         } catch (e) {
-            return rejectWithValue(e.message);
+            try {
+                if (localStorage.getItem('refresh')) {
+                    dispatch(checkAuthentication()).then(
+                        () => {dispatch(getFavoriteCount(id));}
+                    );
+                } else return rejectWithValue(e.message)
+            } catch (e) {
+                return rejectWithValue(e.message)
+            }
         }
     }
 )
@@ -21,7 +30,7 @@ export const getFavoriteCount = createAsyncThunk(
 
 export const getFavoriteList = createAsyncThunk(
     'favorite/getFavoriteList',
-    async ({userID}, {rejectWithValue}) => {
+    async ({userID}, {rejectWithValue, dispatch}) => {
         const config = {
             headers: {
                 'Content-Type': 'application/json',
@@ -34,7 +43,15 @@ export const getFavoriteList = createAsyncThunk(
             if(response.status!==200) throw new Error('Error get ann list')
             return response.data;
         } catch (e) {
-            return rejectWithValue(e);
+            try {
+                if (localStorage.getItem('refresh')) {
+                    dispatch(checkAuthentication()).then(
+                        () => {dispatch(getFavoriteList({userID: userID}));}
+                    );
+                } else return rejectWithValue(e.message)
+            } catch (e) {
+                return rejectWithValue(e.message)
+            }
         }
     }
 )
@@ -55,7 +72,15 @@ export const addAnnToFavorite = createAsyncThunk(
             dispatch(getFavoriteCount(userID));
             return response.data
         } catch (e) {
-            return rejectWithValue(e.message);
+            try {
+                if (localStorage.getItem('refresh')) {
+                    dispatch(checkAuthentication()).then(
+                        () => {dispatch(addAnnToFavorite({userID: userID, annID: annID}));}
+                    );
+                } else return rejectWithValue(e.message)
+            } catch (e) {
+                return rejectWithValue(e.message)
+            }
         }
     }
 )
@@ -77,7 +102,15 @@ export const removeAnnFromFavorite = createAsyncThunk(
             dispatch(getFavoriteCount(userID));
             return response.data
         } catch (e) {
-            return rejectWithValue(e.message);
+            try {
+                if (localStorage.getItem('refresh')) {
+                    dispatch(checkAuthentication()).then(
+                        () => {dispatch(removeAnnFromFavorite({userID: userID, annID: annID}));}
+                    );
+                } else return rejectWithValue(e.message)
+            } catch (e) {
+                return rejectWithValue(e.message)
+            }
         }
     }
 )

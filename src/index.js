@@ -14,7 +14,6 @@ import {store} from "./store/store";
 import Register from "./routes/Register/Register";
 import Profile from "./routes/Profile/Profile";
 import CatalogDetail from "./routes/CatalogDetail/CatalogDetail";
-import axios from "axios";
 import ForgotConfirm from "./routes/ForgotConfirm/ForgotConfirm";
 import Activate from "./routes/Activate/Activate";
 import ProfileSettings from "./routes/ProfileSettings/ProfileSettings";
@@ -35,15 +34,7 @@ const JSXRouter = createBrowserRouter(createRoutesFromElements(
         <Route element={<Forgot/>} path='/reset-password/'/>
         <Route element={<ForgotConfirm/>} path='/password/reset/confirm/:uid/:token'/>
         <Route element={<Catalog/>} path='/catalog/:type?'/>
-        <Route element={<CatalogDetail/>} path='/catalog/:type/:id' loader={
-            async ({params}) => {
-                try {
-                    const response = await axios.get(`${process.env.REACT_APP_REST_API}announcements/${params.type}/${params.id}`);
-                    return response;
-                } catch (e) {
-                    console.log('ERROR FETCH ANNOUNCEMENT')
-                }
-            }}/>
+        <Route element={<CatalogDetail/>} path='/catalog/:type/:id'/>
     </Route>
 ))
 

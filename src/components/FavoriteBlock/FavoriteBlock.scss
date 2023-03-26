@@ -1,0 +1,20 @@
+.CardFavoriteBlock {
+  font-family: Tahoma, sans-serif;
+  display: flex;
+  flex-flow: row nowrap;
+  justify-content: flex-start;
+
+  span {
+    margin-right: 5px;
+  }
+}
+
+.CardFavoriteImg {
+  width: 20px;
+  height: 22px;
+
+  &:hover {
+    padding: 1px;
+    transition: 0.3s !important;
+  }
+}

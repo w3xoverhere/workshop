@@ -38,7 +38,6 @@ const Catalog = () => {
     }
 
     const scrollHandler = (e) => {
-        console.log(`data length:${data.length} total count: ${totalCount}`)
         if (e.target.documentElement.scrollHeight - (e.target.documentElement.scrollTop + window.innerHeight) < 100 && data.length < totalCount) {
             setFetching(true);
         }

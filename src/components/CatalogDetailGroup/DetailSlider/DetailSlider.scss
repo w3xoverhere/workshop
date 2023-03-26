@@ -1,0 +1,114 @@
+@import "../../../variables";
+
+.catalog-detail-slider-wrapper {
+  width: 400px;
+  height: 350px;
+}
+
+@mixin catalog-detail-slider-arrows-block ($arrowDirection, $bgSlider) {
+  cursor: pointer;
+  position: absolute;
+  z-index: 8;
+  width: 15%;
+  top: 0;
+  height: 100%;
+  opacity: 0.8;
+
+  .catalog-detail-slider-arrow {
+    position: absolute;
+    z-index: 9;
+    top: 50%;
+    font-weight: bolder;
+    opacity: 1;
+  }
+
+  @if $arrowDirection=='left' {
+    border-bottom-left-radius: 10px;
+    border-top-left-radius: 10px;
+    left: 0;
+    .catalog-detail-slider-arrow {
+      left: 40%;
+    }
+  } @else {
+    border-bottom-right-radius: 10px;
+    border-top-right-radius: 10px;
+    right: 0;
+    .catalog-detail-slider-arrow {
+      right: 40%;
+    }
+  }
+
+  &:hover {
+    transition: 0.6s;
+    background-color: $bgSlider;
+  }
+}
+
+@mixin catalog-detail-slider ($bgSlider) {
+  position: relative;
+  width: 100%;
+  height: 100%;
+  border-radius: 10px;
+  margin-bottom: 20px;
+
+  .catalog-detail-slider-element {
+    border-radius: 10px;
+    width: 100%;
+    height: 100%;
+    box-shadow: 0px 5px 10px 2px rgba(34, 60, 80, 0.2);
+  }
+
+  .catalog-detail-slider-left-arrow-block {
+    @include catalog-detail-slider-arrows-block('left', $bgSlider)
+  }
+
+  .catalog-detail-slider-right-arrow-block {
+    @include catalog-detail-slider-arrows-block('right', $bgSlider)
+  }
+}
+
+.catalog-detail-slider-miniature {
+  position: static;
+  display: flex;
+  flex-flow: row wrap;
+  align-items: flex-start;
+  margin-bottom: 15px;
+
+
+  img {
+    cursor: pointer;
+    box-shadow: 0px 5px 10px 2px rgba(34, 60, 80, 0.2);
+    border-radius: 4px;
+    margin-left: 15px;
+    position: static;
+    display: block;
+    height: 52px;
+  }
+}
+
+.dark-catalog-detail-slider {
+  @include catalog-detail-slider($dark-second-bg);
+  .catalog-detail-slider-arrow {
+    color: $dark-button-bg;
+  }
+}
+
+.light-catalog-detail-slider {
+  @include catalog-detail-slider($light-second-bg);
+  .catalog-detail-slider-arrow {
+    color: $light-button-bg;
+  }
+}
+
+@mixin detail-slider-miniature-selected() {
+  padding-top: 3px;
+  transition: 0.3s;
+}
+
+.dark-detail-slider-miniature-selected {
+  @include detail-slider-miniature-selected()
+}
+
+.light-detail-slider-miniature-selected {
+  @include detail-slider-miniature-selected()
+}

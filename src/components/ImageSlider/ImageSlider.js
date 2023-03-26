@@ -15,7 +15,7 @@ const ImageSlider = ({data}) => {
 
     return (
         <div className='image-slider-wrapper'>
-            <img className='Miniature' style={{transition: '1s'}} src={images[currentPage - 1].images}/>
+            <img className='Miniature' src={images[currentPage - 1].images}/>
             <div className='slider-buttons-group'>
                 {(() => {
                     const pagesSpan = [];
